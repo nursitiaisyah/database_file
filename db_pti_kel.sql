@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Mar 2023 pada 13.34
+-- Waktu pembuatan: 08 Bulan Mei 2023 pada 15.59
 -- Versi server: 10.4.27-MariaDB
--- Versi PHP: 8.1.12
+-- Versi PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,7 +46,15 @@ CREATE TABLE `data_hardware` (
 
 INSERT INTO `data_hardware` (`id_hardware`, `speed`, `tipe`, `seri`, `hard_drive`, `model`, `ram`, `manufacture`, `kategori`, `id_pegawai`) VALUES
 (11, '3,2 Ghz', 'Pentium 4', '4765-56-7543', '160 GB', 'E-6100', '1 GB', 'Gateway', 'Desktop', 5),
-(12, '2,6 Ghz', 'Pentium 4', '9879-34-2856', '80 GB', 'XW 4101', '1 GB', 'HP', 'Desktop', 6);
+(12, '2,6 Ghz', 'Pentium 4', '9879-34-2856', '80 GB', 'XW 4101', '1 GB', 'HP', 'Desktop', 6),
+(13, '2,6 Ghz', 'Pentium 4', '9375-44-8275', '80 GB', 'XW 4102', '1 GB', 'HP', 'Desktop', 7),
+(14, '3,2 Ghz', 'Pentium 4', '9287-11-9847', '160 GB', 'E-6103', '1 GB', 'Gateway', 'Desktop', 8),
+(15, '1,3 Ghz', 'Pentium  M', '0241-78-4892', '30 GB', 'LD500', '1 GB', 'Dell', 'Notebook', 9),
+(16, '1,4 Ghz', 'Pentium 4', '9587-16-9837', '80 GB', 'WE-5674', '1 GB', 'HP', 'Desktop', 10),
+(17, '3,2 Ghz', 'Pentium  M', '5765-57-7453', '30 GB', 'QS700', '1 GB', 'Dell', 'Notebook', 11),
+(18, '2,5 Ghz', 'Pentium 4', '2287-21-5847', '160 GB', 'KI-203', '1 GB', 'HP', 'Desktop', 12),
+(19, '3,2 Ghz', 'Pentium 4', '4241-78-4590', '80 GB', 'XE-233', '1 GB', 'HP', 'Desktop', 13),
+(20, '2,6 Ghz', 'Pentium 4', '5241-45-2536', '80 GB', 'XQ342', '1 GB', 'Dell', 'Desktop', 14);
 
 -- --------------------------------------------------------
 
@@ -73,7 +81,8 @@ INSERT INTO `data_pegawai` (`id_pegawai`, `nama`, `unit`) VALUES
 (10, 'Beny', 'Direktur'),
 (11, 'Rudy', 'Keuangan'),
 (12, 'Veni', 'Programer'),
-(13, 'Erlin Novita', 'SDM');
+(13, 'Erlin Novita', 'SDM'),
+(14, 'Cindy', 'HRD');
 
 -- --------------------------------------------------------
 
@@ -96,7 +105,16 @@ INSERT INTO `data_software` (`id_software`, `publisher`, `judul`, `lisensi`) VAL
 (1, 'Microsoft', 'MS.Office 2010', '100'),
 (2, 'Microsoft', 'Ms.Project 2010', '25'),
 (3, 'Adobe', 'Photoshop 5', '30'),
-(4, 'Norton', 'Norton Antivirus 2016', '100');
+(4, 'Norton', 'Norton Antivirus 2016', '100'),
+(5, 'Microsoft', 'Ms. Office 2010', '100'),
+(6, 'Microsoft', 'Ms. Project 2010', '25'),
+(7, 'Adobe', 'Photoshop 5', '30'),
+(8, 'Norton', 'Norton Antivirus 2016', '100'),
+(9, 'Adobe', 'Visual Studio Code ', '40'),
+(10, 'Adobe', 'Premiere Pro', '100'),
+(11, 'Zoom', 'Zoom Meeting', '50'),
+(12, 'Microsoft', 'Microsoft News', '100'),
+(13, 'Adobe', 'Acrobat DC', '100');
 
 -- --------------------------------------------------------
 
@@ -109,6 +127,17 @@ CREATE TABLE `instalansi` (
   `id_hardware` int(11) NOT NULL,
   `id_software` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data untuk tabel `instalansi`
+--
+
+INSERT INTO `instalansi` (`id_instalansi`, `id_hardware`, `id_software`) VALUES
+(5, 13, 5),
+(1, 15, 1),
+(4, 15, 4),
+(2, 16, 2),
+(3, 18, 3);
 
 --
 -- Indexes for dumped tables
@@ -149,25 +178,25 @@ ALTER TABLE `instalansi`
 -- AUTO_INCREMENT untuk tabel `data_hardware`
 --
 ALTER TABLE `data_hardware`
-  MODIFY `id_hardware` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_hardware` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_pegawai`
 --
 ALTER TABLE `data_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_software`
 --
 ALTER TABLE `data_software`
-  MODIFY `id_software` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_software` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `instalansi`
 --
 ALTER TABLE `instalansi`
-  MODIFY `id_instalansi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_instalansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

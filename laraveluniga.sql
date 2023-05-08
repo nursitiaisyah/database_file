@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Mar 2023 pada 13.04
+-- Waktu pembuatan: 08 Bulan Mei 2023 pada 15.59
 -- Versi server: 10.4.27-MariaDB
--- Versi PHP: 8.1.12
+-- Versi PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `laraveluniga`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `buku`
+--
+
+CREATE TABLE `buku` (
+  `id_buku` bigint(10) NOT NULL,
+  `judul_buku` varchar(30) NOT NULL,
+  `jenis_buku` varchar(30) NOT NULL,
+  `pengarang` varchar(30) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `buku`
+--
+
+INSERT INTO `buku` (`id_buku`, `judul_buku`, `jenis_buku`, `pengarang`, `created_at`, `updated_at`) VALUES
+(1, 'Manejemen Produksi', 'Buku Ajar', 'Prof. Dr. Wijaya , S.E.MM', NULL, NULL),
+(2, 'Dilan 1990', 'Novel', 'Pidi Baiq', NULL, NULL),
+(5, 'Ketika Cinta Bertasbih', 'Novel', 'Habiburrahman El Shirazy', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -44,17 +68,21 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `jurusan` (
-  `id` bigint(10) NOT NULL,
-  `nama-jurusan` varchar(50) NOT NULL
+  `id_jurusan` bigint(10) NOT NULL,
+  `nama_jurusan` varchar(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `jurusan`
 --
 
-INSERT INTO `jurusan` (`id`, `nama-jurusan`) VALUES
-(1, 'Sistem Informasi'),
-(2, 'Teknik Infomatika');
+INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`, `created_at`, `updated_at`) VALUES
+(10, 'Akuntansi', NULL, NULL),
+(11, 'Manajemen', NULL, NULL),
+(12, 'Bahasa Inggris', NULL, NULL),
+(13, 'Bahasa Arab', '2023-03-31 09:46:53', '2023-03-31 09:46:53');
 
 -- --------------------------------------------------------
 
@@ -67,8 +95,18 @@ CREATE TABLE `mahasiswa` (
   `nama` varchar(30) NOT NULL,
   `jeniskelamin` varchar(10) NOT NULL,
   `alamat` text NOT NULL,
-  `idjurusan` bigint(10) NOT NULL
+  `created_at` timestamp(6) NULL DEFAULT NULL,
+  `updated_at` timestamp(6) NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `mahasiswa`
+--
+
+INSERT INTO `mahasiswa` (`id`, `nama`, `jeniskelamin`, `alamat`, `created_at`, `updated_at`) VALUES
+(2, 'Nur Siti Aisyah', 'Perempuan', 'Lumajang', NULL, '2023-03-31 10:01:11.000000'),
+(3, 'Tiara Kasih', 'Perempuan', 'Bangkalan', NULL, NULL),
+(5, 'Siti Mutmainnah', 'Perempuan', 'Surabaya', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -103,6 +141,31 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `peminjaman`
+--
+
+CREATE TABLE `peminjaman` (
+  `id_peminjaman` bigint(10) NOT NULL,
+  `id` bigint(10) NOT NULL,
+  `id_jurusan` bigint(10) NOT NULL,
+  `id_buku` bigint(10) NOT NULL,
+  `tgl_peminjaman` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `tgl_kembali` date DEFAULT NULL,
+  `status` enum('Dipinjam','Dikembalikan') NOT NULL,
+  `tenggat` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`id_peminjaman`, `id`, `id_jurusan`, `id_buku`, `tgl_peminjaman`, `tgl_kembali`, `status`, `tenggat`) VALUES
+(1, 5, 10, 1, '2023-04-04 17:00:00', '2023-04-07', 'Dipinjam', '2023-04-08'),
+(2, 3, 12, 2, '2023-04-05 04:53:10', NULL, 'Dipinjam', '2023-04-09');
 
 -- --------------------------------------------------------
 
@@ -144,6 +207,12 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indeks untuk tabel `buku`
+--
+ALTER TABLE `buku`
+  ADD PRIMARY KEY (`id_buku`);
+
+--
 -- Indeks untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -154,7 +223,7 @@ ALTER TABLE `failed_jobs`
 -- Indeks untuk tabel `jurusan`
 --
 ALTER TABLE `jurusan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_jurusan`);
 
 --
 -- Indeks untuk tabel `mahasiswa`
@@ -173,6 +242,15 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indeks untuk tabel `peminjaman`
+--
+ALTER TABLE `peminjaman`
+  ADD PRIMARY KEY (`id_peminjaman`),
+  ADD UNIQUE KEY `id_mahasiswa` (`id`,`id_jurusan`,`id_buku`),
+  ADD KEY `id_jurusan` (`id_jurusan`),
+  ADD KEY `id_buku` (`id_buku`);
 
 --
 -- Indeks untuk tabel `personal_access_tokens`
@@ -194,6 +272,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `buku`
+--
+ALTER TABLE `buku`
+  MODIFY `id_buku` bigint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -203,19 +287,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `jurusan`
 --
 ALTER TABLE `jurusan`
-  MODIFY `id` bigint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jurusan` bigint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` bigint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `peminjaman`
+--
+ALTER TABLE `peminjaman`
+  MODIFY `id_peminjaman` bigint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -228,6 +318,18 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `peminjaman`
+--
+ALTER TABLE `peminjaman`
+  ADD CONSTRAINT `peminjaman_ibfk_1` FOREIGN KEY (`id`) REFERENCES `mahasiswa` (`id`),
+  ADD CONSTRAINT `peminjaman_ibfk_2` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id_jurusan`),
+  ADD CONSTRAINT `peminjaman_ibfk_3` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
