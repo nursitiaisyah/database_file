@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Bulan Mei 2023 pada 15.59
--- Versi server: 10.4.27-MariaDB
--- Versi PHP: 8.0.25
+-- Waktu pembuatan: 12 Bulan Mei 2023 pada 05.58
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,11 +43,11 @@ CREATE TABLE `data_barang` (
 --
 
 INSERT INTO `data_barang` (`id`, `kode_barang`, `nama_barang`, `merk`, `harga`, `stok`, `created_at`, `updated_at`) VALUES
-(1, 'B01', 'Mesin Cuci', 'Samsung', 6000000, 6, NULL, '2023-05-05 06:56:30.000000'),
-(2, 'B02', 'Kipas Angin', 'Toshiba', 250000, 4, '2023-05-05 04:07:11.000000', '2023-05-05 07:02:32.000000'),
-(3, 'B03', 'TV Samsung', 'Samsung', 8000000, 2, '2023-05-05 06:50:59.000000', '2023-05-05 07:03:18.000000'),
-(5, 'B04', 'AC Panasonic', 'Panasonic', 4000000, 3, '2023-05-05 06:53:19.000000', '2023-05-07 18:41:01.000000'),
-(6, 'B05', 'Kulkas LG', 'LG', 9000000, 2, '2023-05-05 06:57:54.000000', '2023-05-05 06:57:54.000000');
+(1, 'B01', 'Mesin Cuci', 'Samsung', 6000000, 6, NULL, '2023-05-08 23:34:37.000000'),
+(2, 'B02', 'Kipas Angin', 'Toshiba', 250000, 5, '2023-05-05 04:07:11.000000', '2023-05-09 16:44:38.000000'),
+(5, 'B04', 'AC Panasonic', 'Panasonic', 4000000, -1, '2023-05-05 06:53:19.000000', '2023-05-09 19:39:19.000000'),
+(6, 'B05', 'Kulkas LG', 'LG', 9000000, 2, '2023-05-05 06:57:54.000000', '2023-05-05 06:57:54.000000'),
+(7, 'B06', 'Jam Dinding', 'Seiko', 70000, 6, '2023-05-08 23:09:51.000000', '2023-05-09 20:23:09.000000');
 
 -- --------------------------------------------------------
 
@@ -69,11 +69,11 @@ CREATE TABLE `data_pelanggan` (
 --
 
 INSERT INTO `data_pelanggan` (`id_pelanggan`, `nama`, `alamat`, `no_tlp`, `created_at`, `updated_at`) VALUES
-(1, 'Sinta', 'Jl. Soekarno Hatta No. 20, Malang', '081012345671', NULL, '2023-05-05 06:22:09.000000'),
+(1, 'Bima', 'Surabaya', '089457869876', NULL, '2023-05-08 23:14:37.000000'),
 (2, 'Dian Ayu', 'Jl. Diponegoro No. 10, Semarang', '081567890121', '2023-05-05 04:09:22.000000', '2023-05-05 06:21:20.000000'),
-(3, 'Yeri', 'Jl. Sudirman No. 12, Jakarta', '08123456783', '2023-05-05 05:50:05.000000', '2023-05-05 06:06:09.000000'),
 (4, 'Budi', 'Jl. Thamrin No. 15, Bandung', '08134567890', '2023-05-05 05:50:57.000000', '2023-05-05 05:50:57.000000'),
-(5, 'Citra', 'Jl. Gatot Subroto No. 20, Surabaya', '08145678901', '2023-05-05 05:51:43.000000', '2023-05-05 05:51:43.000000');
+(5, 'Citra', 'Jl. Gatot Subroto No. 20, Surabaya', '08145678901', '2023-05-05 05:51:43.000000', '2023-05-05 05:51:43.000000'),
+(8, 'Deswita Ristin Awalia', 'Kediri', '089765778987', '2023-05-09 16:28:02.000000', '2023-05-09 16:33:32.000000');
 
 -- --------------------------------------------------------
 
@@ -98,9 +98,10 @@ CREATE TABLE `data_transaksi` (
 
 INSERT INTO `data_transaksi` (`id_transaksi`, `id_pelanggan`, `id`, `tgl_transaksi`, `jumlah`, `total`, `created_at`, `updated_at`) VALUES
 (4, 1, 1, '2023-05-05 05:43:24', 3, 4500000, '2023-05-05 05:43:24.000000', '2023-05-05 05:43:24.000000'),
-(5, 2, 2, '2023-05-05 07:02:32', 1, 250000, '2023-05-05 07:02:32.000000', '2023-05-05 07:02:32.000000'),
-(7, 5, 5, '2023-05-05 07:13:36', 2, 8000000, '2023-05-05 07:13:36.000000', '2023-05-05 07:13:36.000000'),
-(8, 5, 5, '2023-05-07 18:41:01', 2, 8000000, '2023-05-07 18:41:01.000000', '2023-05-07 18:41:01.000000');
+(5, 4, 6, '2023-05-10 02:16:20', 2, 18000000, '2023-05-05 07:02:32.000000', '2023-05-09 19:16:20.000000'),
+(9, 1, 2, '2023-05-10 02:14:24', 3, 750000, '2023-05-08 23:11:19.000000', '2023-05-09 19:14:24.000000'),
+(11, 2, 5, '2023-05-09 19:39:04', 1, 4000000, '2023-05-09 19:39:04.000000', '2023-05-09 19:39:04.000000'),
+(12, 2, 5, '2023-05-09 19:39:19', 3, 12000000, '2023-05-09 19:39:19.000000', '2023-05-09 19:39:19.000000');
 
 -- --------------------------------------------------------
 
@@ -254,19 +255,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `data_barang`
 --
 ALTER TABLE `data_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_pelanggan`
 --
 ALTER TABLE `data_pelanggan`
-  MODIFY `id_pelanggan` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pelanggan` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_transaksi`
 --
 ALTER TABLE `data_transaksi`
-  MODIFY `id_transaksi` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_transaksi` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
